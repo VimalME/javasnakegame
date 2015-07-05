@@ -20,7 +20,8 @@ public class Frame extends JFrame{
     
     public Frame(){
         super(Defaults.GAME_NAME);
-        setSize(800,600);
+        setSize(Defaults.FRAME_X,Defaults.FRAME_Y);
+        
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);

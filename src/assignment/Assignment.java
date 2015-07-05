@@ -14,7 +14,7 @@ public class Assignment {
             arena.init().initPlayer().setPlayerName();
 
             arena.initTiles();
-//          arena.setHUD();
+            arena.setHUD();
             arena.setVisible(true);
         } catch (NullPointerException e) {
             javax.swing.JOptionPane.showMessageDialog(null, "Game exited");

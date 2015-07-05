@@ -24,4 +24,15 @@ public class Defaults {
         //Defaults Colors
         public static final Color[] COLORS = {Color.GRAY, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.RED, Color.WHITE};
 
+        //Default x 
+        public static final int FRAME_X = 800;
+
+        //Default y
+        public static final int FRAME_Y = 600;
+        
+        //Poision
+        public static final String POISION =  "poision";
+       
+        //Poision Color
+        static Color POISION_COLOR = Color.RED;
 }

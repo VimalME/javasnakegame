@@ -3,10 +3,14 @@ package assignment;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,11 +19,16 @@ import javax.swing.JPanel;
  * @author samundrak
  */
 public class Arena extends Frame {
+    static boolean poisionMode = false;
 
     private ArrayList<Player> player;
+    private ArrayList<Tiles> poisons;
+    
     public static ArrayList<Integer> clickedTiles = new ArrayList<Integer>();
     
     public Arena init() {
+        setLayout(new FlowLayout());
+        poisons  = new ArrayList<Tiles>();
         return this;
     }
 
@@ -46,7 +55,8 @@ public class Arena extends Frame {
 
     public void initTiles() {
         gl = new GridLayout(20, 20);
-
+        JPanel jp =  new JPanel(gl);
+        jp.setPreferredSize(new Dimension(Defaults.FRAME_X, 570));
         for (int i = 0; i < Defaults.TOTAL_TILES; i++) {
             Tiles tile = new Tiles();
             tile.setBackground(Defaults.BUTTON_DEFAULT_COLOR);
@@ -61,22 +71,32 @@ public class Arena extends Frame {
         //iconify();
         Iterator it = tiles.iterator();
         while (it.hasNext()) {
-            add((Component) it.next());
+            jp.add((Component) it.next());
         }
         javax.swing.JOptionPane.showMessageDialog(null, player.get(Player.turn).getName() + " will start the game!!");
         this.setTitle(Defaults.GAME_NAME + " ("+ player.get(Player.turn).getName() + "'s turn)");
-        setLayout(gl);
-
+//        setLayout(gl);
+        
+        add(jp);
     }
 
     public void setHUD() {
         JPanel jp = new JPanel();
         for (int i = 0; i < Defaults.TOTAL_PLAYERS; i++) {
             JLabel jl = new JLabel(player.get(i).getName());
-            jl.setSize(200, 50);
+            Tiles jb = new Tiles();
+            jb.setText(Defaults.POISION);
+            jb.setBackground(Color.RED);
+            jb.setName(player.get(i).getName());
+            EventListener el = new EventListener(jb,this);
+            el.setPlyar(player);
+            el.setAllTiles(tiles);
+            jb.addActionListener(el);
             jp.add(jl);
+            jp.add(jb);
         }
-        jp.setLayout(new FlowLayout());
+        jp.setLayout(new GridLayout(1, 2));
+        jp.setPreferredSize(new Dimension(Defaults.FRAME_X,20));
         jp.setSize(500, 500);
         add(jp);
     }
@@ -99,5 +119,14 @@ public class Arena extends Frame {
        
         javax.swing.JOptionPane.showMessageDialog(null, player.get(Player.turn).getName() + " will start the game!!");
         this.setTitle(Defaults.GAME_NAME + " ("+ player.get(Player.turn).getName() + "'s turn)");
+   }
+   
+   class PoisionEventListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+       
    }
 }
