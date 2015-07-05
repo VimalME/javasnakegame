@@ -22,7 +22,8 @@ public class Arena extends Frame {
     static boolean poisionMode = false;
 
     private ArrayList<Player> player;
-    private ArrayList<Tiles> poisons;
+    ArrayList<Tiles> poisons;
+    ArrayList<JLabel> scores = new ArrayList<JLabel>();
     
     public static ArrayList<Integer> clickedTiles = new ArrayList<Integer>();
     
@@ -82,19 +83,27 @@ public class Arena extends Frame {
 
     public void setHUD() {
         JPanel jp = new JPanel();
+        jp.setBackground(Color.white);
         for (int i = 0; i < Defaults.TOTAL_PLAYERS; i++) {
             JLabel jl = new JLabel(player.get(i).getName());
+            jl.setOpaque(true);
+            scores.add(jl);
             Tiles jb = new Tiles();
             jb.setText(Defaults.POISION);
             jb.setBackground(Color.RED);
             jb.setName(player.get(i).getName());
+//            jl.setForeground(Color.white);
+            jb.setForeground(Color.white);
+//            jb.setEnabled(false);
             EventListener el = new EventListener(jb,this);
             el.setPlyar(player);
             el.setAllTiles(tiles);
             jb.addActionListener(el);
             jp.add(jl);
             jp.add(jb);
+            poisons.add(jb);
         }
+        scores.get(Player.turn).setBackground(Color.GREEN);
         jp.setLayout(new GridLayout(1, 2));
         jp.setPreferredSize(new Dimension(Defaults.FRAME_X,20));
         jp.setSize(500, 500);
@@ -117,16 +126,12 @@ public class Arena extends Frame {
            tiles.get(i).setEnabled(true);
        }
        
+       for (int i = 0; i < poisons.size(); i++) {
+           poisons.get(i).setEnabled(true);
+       }
         javax.swing.JOptionPane.showMessageDialog(null, player.get(Player.turn).getName() + " will start the game!!");
         this.setTitle(Defaults.GAME_NAME + " ("+ player.get(Player.turn).getName() + "'s turn)");
    }
    
-   class PoisionEventListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-       
-   }
+   
 }

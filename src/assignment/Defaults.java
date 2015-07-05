@@ -13,7 +13,7 @@ public class Defaults {
         public static final int TOTAL_TILES = 400;
         
         //Total number of players in game
-        public static final int TOTAL_PLAYERS = 2;
+        public static final int TOTAL_PLAYERS = 3;
 
         //Game name
         public static final String GAME_NAME = "Snake Game ";
