@@ -13,7 +13,7 @@ public class Defaults {
         public static final int TOTAL_TILES = 400;
         
         //Total number of players in game
-        public static final int TOTAL_PLAYERS = 3;
+        public static final int TOTAL_PLAYERS = 2;
 
         //Game name
         public static final String GAME_NAME = "Snake Game ";
@@ -34,5 +34,11 @@ public class Defaults {
         public static final String POISION =  "poision";
        
         //Poision Color
-        static Color POISION_COLOR = Color.RED;
+        static final Color POISION_COLOR = Color.RED;
+        
+        //Highlight Color
+        static final Color HIGHLIGHT_COLOR = Color.ORANGE;
+        
+        //Chain counter
+        static int CHAIN_COUNTER = 9;
 }

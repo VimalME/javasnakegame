@@ -85,7 +85,7 @@ public class Arena extends Frame {
         JPanel jp = new JPanel();
         jp.setBackground(Color.white);
         for (int i = 0; i < Defaults.TOTAL_PLAYERS; i++) {
-            JLabel jl = new JLabel(player.get(i).getName());
+            JLabel jl = new JLabel(player.get(i).getName()+": 0"  );
             jl.setOpaque(true);
             scores.add(jl);
             Tiles jb = new Tiles();
@@ -103,7 +103,7 @@ public class Arena extends Frame {
             jp.add(jb);
             poisons.add(jb);
         }
-        scores.get(Player.turn).setBackground(Color.GREEN);
+        scores.get(Player.turn).setBackground(Defaults.HIGHLIGHT_COLOR);
         jp.setLayout(new GridLayout(1, 2));
         jp.setPreferredSize(new Dimension(Defaults.FRAME_X,20));
         jp.setSize(500, 500);
@@ -122,12 +122,21 @@ public class Arena extends Frame {
    public void gameResetter(){
        for (int i = 0; i < Defaults.TOTAL_TILES; i++) {
            tiles.get(i).setName(i+"");
-           tiles.get(i).setBackground(Defaults.BUTTON_DEFAULT_COLOR);
            tiles.get(i).setEnabled(true);
+           tiles.get(i).setBackground(Defaults.BUTTON_DEFAULT_COLOR);
+           
+       }
+       
+        for (int i = 0; i < Defaults.TOTAL_TILES; i++) {
+           tiles.get(i).setName(i+"");
+           tiles.get(i).setEnabled(true);
+           tiles.get(i).setBackground(Defaults.BUTTON_DEFAULT_COLOR);
+           
        }
        
        for (int i = 0; i < poisons.size(); i++) {
            poisons.get(i).setEnabled(true);
+           poisons.get(i).setBackground(Defaults.POISION_COLOR);
        }
         javax.swing.JOptionPane.showMessageDialog(null, player.get(Player.turn).getName() + " will start the game!!");
         this.setTitle(Defaults.GAME_NAME + " ("+ player.get(Player.turn).getName() + "'s turn)");

@@ -13,7 +13,6 @@ public class EventListener implements ActionListener {
 
     private Tiles tile;
     private ArrayList<Player> plyar;
-    
     private ArrayList<Tiles> tiles;
     private Arena frame;
 
@@ -34,15 +33,16 @@ public class EventListener implements ActionListener {
         }
 
         if (e.getActionCommand().equals(Defaults.POISION)) {
-            if(plyar.get(Player.turn).getName().equals(this.tile.getName())){
-            this.tile.setEnabled(false);
-            this.plyar.get(Player.turn).setPoison(this.plyar.get(Player.turn).getPoison() + 1);
-            for (int i = 0; i < Defaults.TOTAL_TILES; i++) {
-                tiles.get(i).setEnabled(true);
-            }
-            this.tile.setBackground(Color.PINK);
-            Arena.poisionMode = true;}
-            else{
+            if (plyar.get(Player.turn).getName().equals(this.tile.getName())) {
+                this.tile.setEnabled(false);
+                this.plyar.get(Player.turn).setPoison(this.plyar.get(Player.turn).getPoison() + 1);
+                for (int i = 0; i < Defaults.TOTAL_TILES; i++) {
+                    tiles.get(i).setEnabled(true);
+                }
+                this.tile.setBackground(Color.PINK);
+                this.frame.scores.get(Player.turn).setBackground(Color.WHITE);
+                Arena.poisionMode = true;
+            } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Please Dont try to use others poision!!!");
             }
         } else {
@@ -50,7 +50,7 @@ public class EventListener implements ActionListener {
             if (Arena.poisionMode) {
                 tile.setBackground(Defaults.POISION_COLOR);
                 for (int i = 0; i < Arena.clickedTiles.size(); i++) {
-                  tiles.get(Arena.clickedTiles.get(i)).setEnabled(false);
+                    tiles.get(Arena.clickedTiles.get(i)).setEnabled(false);
                 }
                 Arena.poisionMode = false;
             } else {
@@ -64,24 +64,25 @@ public class EventListener implements ActionListener {
                 LogixChecker logixChecker = new LogixChecker(plyar.get(Player.turn));
                 tiles.get(Integer.parseInt(tile.getName())).setName(plyar.get(Player.turn).getName());
                 logixChecker.setTiles(tiles);
+                this.frame.scores.get(Player.turn).setBackground(Color.WHITE);
 
                 if (logixChecker.isGameFinished()) {
                     plyar.get(Player.turn).setWonGame(plyar.get(Player.turn).getWonGame() + 1);
                     javax.swing.JOptionPane.showMessageDialog(null, "Congratulations! " + plyar.get(Player.turn).getName() + " You have won " + plyar.get(Player.turn).getWonGame() + " game");
-                    this.frame.scores.get(Player.turn).setText(plyar.get(Player.turn).getName() + ": "  +  plyar.get(Player.turn).getWonGame());
+                    this.frame.scores.get(Player.turn).setText(plyar.get(Player.turn).getName() + ": " + plyar.get(Player.turn).getWonGame());
                     frame.gameResetter();
                     Player.turn--;
                 }
-               }
+            }
 //                this.frame.poisons.get(Player.turn).setEnabled(false);
-                this.frame.scores.get( Player.turn).setBackground(Color.WHITE);
-                Player.turn++;
-                
-                int turn = Player.turn == plyar.size() ? 0 : Player.turn;
+
+            Player.turn++;
+
+            int turn = Player.turn == plyar.size() ? 0 : Player.turn;
 //                 if(plyar.get(turn).getPoison() == 0) this.frame.poisons.get(turn).setEnabled(true);
-                this.frame.scores.get(turn).setBackground(Color.GREEN);
-                frame.setTitle(Defaults.GAME_NAME + " (" + plyar.get(turn).getName() + "'s turn)");
-            
+            this.frame.scores.get(turn).setBackground(Defaults.HIGHLIGHT_COLOR);
+            frame.setTitle(Defaults.GAME_NAME + " (" + plyar.get(turn).getName() + "'s turn)");
+
         }
     }
 
