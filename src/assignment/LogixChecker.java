@@ -12,7 +12,15 @@ public class LogixChecker {
     private int chainCounter;
     private ArrayList<Tiles> tiles;
     private ArrayList<Integer> index;
+    private int currentIndex;
 
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
     public LogixChecker(Player player) {
         this.player = player;
         chainCounter = 0;
@@ -20,30 +28,38 @@ public class LogixChecker {
     }
 
     public boolean isGameFinished() {
-        if (horizonatalChecks()) {
-            return true;
-        }
-
-        if (verticalChecks()) {
-            return true;
-        }
-
-        if (zigzagChecks()) {
-            return true;
-        }
-        index.clear();
-
-        if (crossChecker(true)) {
-            return true;
-        }
-        index.clear();
-
-        if (crossChecker(false)) {
-            return true;
-        }
-        index.clear();
-
+        Worm worm = new Worm();
+        worm.setPlayer(player);
+        worm.setTiles(tiles);
+        worm.getSurroundings(getCurrentIndex()); 
+        if(worm.isWormStatus()) return true;
+        
+        
         return false;
+//        if (horizonatalChecks()) {
+//            return true;
+//        }
+//
+//        if (verticalChecks()) {
+//            return true;
+//        }
+//
+//        if (zigzagChecks()) {
+//            return true;
+//        }
+//        index.clear();
+//
+//        if (crossChecker(true)) {
+//            return true;
+//        }
+//        index.clear();
+//
+//        if (crossChecker(false)) {
+//            return true;
+//        }
+//        index.clear();
+//
+//        return false;
     }
 
     private boolean crossChecker(boolean ahead) {
@@ -200,5 +216,19 @@ public class LogixChecker {
         cross(found, ahead);
 
         return false;
+    }
+    
+    private int[] checksX(int x){
+        int top,left,bottom,right,topLeft,topRight,bottomLeft,bottomRight;
+        top = x - 20;
+        topRight = x - 19;
+        right =  x + 1;
+        bottomRight = x + 21;
+        bottom = x + 20;
+        bottomLeft = x + 19;
+        left = x - 1;
+        topLeft = x - 21;
+        int[] i =  {top,left,bottom,right,topLeft,topRight,bottomLeft,bottomRight};
+        return i;
     }
 }

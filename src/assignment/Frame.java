@@ -24,7 +24,7 @@ public class Frame extends JFrame{
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+//        setResizable(false);
         tiles = new ArrayList<Tiles>();
 //        JFrame.setDefaultLookAndFeelDecorated(false);
     }

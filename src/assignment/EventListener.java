@@ -38,6 +38,7 @@ public class EventListener implements ActionListener {
                 this.plyar.get(Player.turn).setPoison(this.plyar.get(Player.turn).getPoison() + 1);
                 for (int i = 0; i < Defaults.TOTAL_TILES; i++) {
                     tiles.get(i).setEnabled(true);
+                    System.out.println(tiles.get(i).isEnabled());
                 }
                 this.tile.setBackground(Color.PINK);
                 this.frame.scores.get(Player.turn).setBackground(Color.WHITE);
@@ -49,6 +50,17 @@ public class EventListener implements ActionListener {
 
             if (Arena.poisionMode) {
                 tile.setBackground(Defaults.POISION_COLOR);
+                tile.setEnabled(false);
+
+                int[] poisionedArea = Defaults.getSideCordinates(tile.getId());
+                for (int i = 0; i < poisionedArea.length; i++) {
+                    try {
+                        tiles.get(poisionedArea[i]).setBackground(Color.BLACK);
+                        tiles.get(poisionedArea[i]).setEnabled(false);
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        continue;
+                    }
+                }
                 for (int i = 0; i < Arena.clickedTiles.size(); i++) {
                     tiles.get(Arena.clickedTiles.get(i)).setEnabled(false);
                 }
@@ -62,8 +74,10 @@ public class EventListener implements ActionListener {
 
                 tile.setEnabled(false);
                 LogixChecker logixChecker = new LogixChecker(plyar.get(Player.turn));
+                logixChecker.setCurrentIndex(Integer.parseInt(tile.getName()));
                 tiles.get(Integer.parseInt(tile.getName())).setName(plyar.get(Player.turn).getName());
                 logixChecker.setTiles(tiles);
+
                 this.frame.scores.get(Player.turn).setBackground(Color.WHITE);
 
                 if (logixChecker.isGameFinished()) {

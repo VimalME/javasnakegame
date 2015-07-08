@@ -6,11 +6,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -62,6 +59,8 @@ public class Arena extends Frame {
             Tiles tile = new Tiles();
             tile.setBackground(Defaults.BUTTON_DEFAULT_COLOR);
             tile.setName(i+"");
+//            tile.setText(i+"");
+            tile.setId(i);
             EventListener el = new EventListener(tile,this);
             el.setPlyar(player);
             el.setAllTiles(tiles);
@@ -108,8 +107,11 @@ public class Arena extends Frame {
         jp.setPreferredSize(new Dimension(Defaults.FRAME_X,20));
         jp.setSize(500, 500);
         add(jp);
+       
     }
     
+    
+  
    public void iconify(){
        //Nepal FLAG
        int[] index = {6, 26, 46, 66, 86, 106, 126, 146, 166, 186, 206, 226, 246, 266, 286, 306, 326, 346, 366, 386, 7, 28, 49, 70, 91, 112, 133, 154, 175, 194, 193, 192, 191, 190, 189, 188, 209, 230, 251, 272, 293, 314, 335, 356, 375, 374, 373, 372, 371, 370, 369, 368, 367, 268, 288, 308, 309, 108, 128, 129, 109};
@@ -127,17 +129,11 @@ public class Arena extends Frame {
            
        }
        
-        for (int i = 0; i < Defaults.TOTAL_TILES; i++) {
-           tiles.get(i).setName(i+"");
-           tiles.get(i).setEnabled(true);
-           tiles.get(i).setBackground(Defaults.BUTTON_DEFAULT_COLOR);
-           
-       }
-       
        for (int i = 0; i < poisons.size(); i++) {
            poisons.get(i).setEnabled(true);
            poisons.get(i).setBackground(Defaults.POISION_COLOR);
        }
+       Arena.clickedTiles.clear();
         javax.swing.JOptionPane.showMessageDialog(null, player.get(Player.turn).getName() + " will start the game!!");
         this.setTitle(Defaults.GAME_NAME + " ("+ player.get(Player.turn).getName() + "'s turn)");
    }
