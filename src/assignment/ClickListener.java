@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author samundrak
  */
-public class EventListener implements ActionListener {
+public class ClickListener implements ActionListener {
 
     private Tiles tile;
     private ArrayList<Player> plyar;
@@ -20,7 +20,7 @@ public class EventListener implements ActionListener {
         this.plyar = plyar;
     }
 
-    public EventListener(Tiles tile, Arena frame) {
+    public ClickListener(Tiles tile, Arena frame) {
         this.tile = tile;
         this.frame = frame;
     }
@@ -37,8 +37,9 @@ public class EventListener implements ActionListener {
                 this.tile.setEnabled(false);
                 this.plyar.get(Player.turn).setPoison(this.plyar.get(Player.turn).getPoison() + 1);
                 for (int i = 0; i < Defaults.TOTAL_TILES; i++) {
-                    tiles.get(i).setEnabled(true);
-                    System.out.println(tiles.get(i).isEnabled());
+                    if(!tiles.get(i).getName().equals(Defaults.POISION)){
+                        tiles.get(i).setEnabled(true);
+                    }
                 }
                 this.tile.setBackground(Color.PINK);
                 this.frame.scores.get(Player.turn).setBackground(Color.WHITE);
@@ -50,6 +51,7 @@ public class EventListener implements ActionListener {
 
             if (Arena.poisionMode) {
                 tile.setBackground(Defaults.POISION_COLOR);
+                tile.setName(Defaults.POISION);
                 tile.setEnabled(false);
 
                 int[] poisionedArea = Defaults.getSideCordinates(tile.getId());
@@ -57,6 +59,7 @@ public class EventListener implements ActionListener {
                     try {
                         tiles.get(poisionedArea[i]).setBackground(Color.BLACK);
                         tiles.get(poisionedArea[i]).setEnabled(false);
+                        tiles.get(poisionedArea[i]).setName(Defaults.POISION);
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         continue;
                     }
@@ -88,12 +91,10 @@ public class EventListener implements ActionListener {
                     Player.turn--;
                 }
             }
-//                this.frame.poisons.get(Player.turn).setEnabled(false);
 
             Player.turn++;
 
             int turn = Player.turn == plyar.size() ? 0 : Player.turn;
-//                 if(plyar.get(turn).getPoison() == 0) this.frame.poisons.get(turn).setEnabled(true);
             this.frame.scores.get(turn).setBackground(Defaults.HIGHLIGHT_COLOR);
             frame.setTitle(Defaults.GAME_NAME + " (" + plyar.get(turn).getName() + "'s turn)");
 

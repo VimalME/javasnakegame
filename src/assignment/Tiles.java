@@ -1,4 +1,3 @@
-
 package assignment;
 
 import javax.swing.JButton;
@@ -7,7 +6,8 @@ import javax.swing.JButton;
  *
  * @author samundrak
  */
-public class Tiles extends JButton{
+public class Tiles extends JButton {
+
     private int id;
 
     public int getId() {
@@ -17,11 +17,5 @@ public class Tiles extends JButton{
     public void setId(int id) {
         this.id = id;
     }
-    
-    public Tiles(){
-//        setSize(50,50);
-    }
-    
-    
-    
+
 }
